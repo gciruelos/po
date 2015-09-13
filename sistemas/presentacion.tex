@@ -1,0 +1,133 @@
+\documentclass{beamer}
+\usepackage{beamerthemeshadow}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{enumerate}
+
+\begin{document}
+\title{Prueba de Oposición - Área Sistemas}  
+\author{Gonzalo Ciruelos}
+\date{14 de septiembre de 2015} 
+
+\frame{\titlepage} 
+
+\section{Presentación} 
+\frame{\frametitle{Presentación} 
+\begin{itemize}
+    \item Materia :  \emph{Organización del Computador I}
+    \vspace{2em}
+    \item Práctica : \emph{Primera práctica - Representación de la información}
+\end{itemize}
+}
+
+\section{Prácticas de la materia} 
+\frame{\frametitle{Presentación} 
+\begin{itemize}
+    \item Primera parte
+    \begin{itemize}
+        \item{\textbf{Representación de la información}}
+        \begin{itemize}
+            \item{\textbf{Números enteros}}
+            \item{\textbf{Números reales}}
+        \end{itemize}
+        \item{Lógica digital}
+        \item{Arquitectura del CPU}
+        \item{Diseño de ISA}
+    \end{itemize}
+    \item Segunda Parte
+    \begin{itemize}
+        \item{Microarquitectura del CPU}
+        \item{Cache}
+        \item{Entrada/Salida}
+        \item{Buses}
+    \end{itemize}
+\end{itemize}
+}
+
+\section{Ejercicio} 
+\frame{
+\begin{itemize}
+    \item El ejercicio podria formar parte de los ejercicios más avanzados de la práctica, de un parcial, o de una clase de repaso.  
+   \item Abarca tanto la parte de representación de números enteros como de números reales.
+   \item Se espera que el alumno conozca ambos temas y los haya ejercitado.
+\end{itemize} 
+}
+
+
+
+\frame{\frametitle{Enunciado}
+\texttt{MIL-STD-1750A} era una ISA de uso militar diseñada en 1980, que utilizaba un formato de números de punto flotante donde el signo de la mantisa era codificado en la misma utilizando notación complemento a 2. Sea el siguiente sistema de representación, basado en \texttt{MIL-STD-1750A}, denominado \texttt{MG-1750A}:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+ 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline
+ \multicolumn{7}{|c|}{exponente} & \multicolumn{5}{c|}{mantisa} \\ \hline
+\end{tabular}
+\end{center}
+
+Cada número se codifica como $m \times 2^e$, donde $m$ es la mantisa y $e$ el exponente. Se utilizan 5 bits para representar la mantisa, que está codificada en notación complemento a 2. El exponente está codificado en notación exceso 31, ocupando 7 bits.
+}
+
+
+\frame{\frametitle{Enunciado (cont.)}
+\begin{enumerate}[a)]
+    \item Indicar el mayor número representable, el menor y el positivo más cercano a cero. Dar las representaciones de cada uno.
+    \pause
+    \item Indicar el \emph{gap} entre el mayor número representable en el formarto \texttt{MG-1750A} y su inmediato anterior. Se define al \emph{gap} como la diferencia en valor absoluto entre dos números consecutivos representables en un sistema de punto flotante.
+    \pause
+    \item ¿Existe algún número que tenga más de una representación en el formato \texttt{MIL-STD-1750A}? En caso afirmativo, mostrar un ejemplo indicando al menos dos representaciones. Justificar en caso contrario.
+\end{enumerate}
+}
+\frame{\frametitle{numbered lists with pause}
+\begin{enumerate}
+\item Introduction to  \LaTeX \pause 
+\item Course 2 \pause 
+\item Termpapers and presentations with \LaTeX \pause 
+\item Beamer class
+\end{enumerate}
+}
+
+\section{Section no.3} 
+\subsection{Tables}
+\frame{\frametitle{Tables}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Date} & \textbf{Instructor} & \textbf{Title} \\
+\hline
+WS 04/05 & Sascha Frank & First steps with  \LaTeX  \\
+\hline
+SS 05 & Sascha Frank & \LaTeX \ Course serial \\
+\hline
+\end{tabular}}
+
+
+\frame{\frametitle{Tables with pause}
+\begin{tabular}{c c c}
+A & B & C \\ 
+\pause 
+1 & 2 & 3 \\  
+\pause 
+A & B & C \\ 
+\end{tabular} }
+
+
+\section{Section no. 4}
+\subsection{blocs}
+\frame{\frametitle{blocs}
+
+\begin{block}{title of the bloc}
+bloc text
+\end{block}
+
+\begin{exampleblock}{title of the bloc}
+bloc text
+\end{exampleblock}
+
+
+\begin{alertblock}{title of the bloc}
+bloc text
+\end{alertblock}
+}
+\end{document}
+      
+
