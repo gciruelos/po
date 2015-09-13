@@ -1,0 +1,151 @@
+\documentclass{beamer}
+\usepackage{beamerthemeshadow}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{enumerate}
+
+\newcommand{\tx}[1]{\text{#1}}
+\newcommand{\secu}{\ensuremath\texttt{secu}(\alpha)}
+\newcommand{\rev}{\text{Reverso}}
+\newcommand{\cons}{\bullet}
+\newcommand{\snoc}{\circ}
+\newcommand{\nil}{\text{nil}}
+\newcommand{\prim}{\text{prim}}
+\newcommand{\fin}{\text{fin}}
+
+\newcommand{\por}[1]{\overset{\text{#1}}{\equiv}}
+\newcommand{\ph}{\phantom{rev1}}
+
+\begin{document}
+\title{Prueba de Oposición - Área Algoritmos}  
+\author{Gonzalo Ciruelos}
+\date{14 de septiembre de 2015} 
+
+\frame{\titlepage} 
+
+\section{Presentación} 
+\frame{\frametitle{Presentación} 
+\begin{itemize}
+    \item Materia :  \emph{Algoritmos y Estructuras de Datos II}
+    \vspace{2em}
+    \item Práctica : \emph{Segunda práctica - Demostración de propiedades}
+\end{itemize}
+}
+
+\section{Prácticas de la materia} 
+\frame{\frametitle{Presentación} 
+\begin{itemize}
+    \item Primera parte
+    \begin{itemize}
+        \item Especificación con Tipos Abstractos de Datos
+        \item \textbf{Demostración de propiedades}
+        \item Diseño: invariante de representación y función de abstracción
+    \end{itemize}
+    \item Segunda Parte
+    \begin{itemize}
+        \item Complejidad Algorítmica
+        \item Diseño: elección de estructuras de datos 
+        \item Ordenamiento
+        \item Dividir y Conquistar
+    \end{itemize}
+\end{itemize}
+}
+
+\section{Ejercicio} 
+\frame{\frametitle{Contexto}
+\begin{itemize}
+    \item El ejercicio podria formar parte de una práctica o de una clase introductoria al tema.  
+   \item Es bueno como introducción al tema porque para resolverlo se utilizan técnicas comunes en todos los problemas de inducción estructural.
+   \item Los alumnos terminaron la práctica de TADs, asistieron a la teórica del tema y empezaron a ejercitarlos.
+\end{itemize} 
+}
+
+\frame{\frametitle{Enunciado}
+Demuestre por inducción estructural que:
+
+$$(\forall s : \texttt{secu}(\alpha))(\tx{Reverso}(\tx{Reverso}(s)) =_{obs} s)$$
+
+Plantee claramente los lemas necesarios y demostrarlos antes de usarlos en la demostración principal.
+}
+
+\frame{\frametitle{Solución}
+Recordemos el esquema de inducción del TAD \texttt{secu}.
+
+$$P(nil) \land ((\forall a : \alpha) (\forall s : \sec P(s)) \implies P(a \cons s))$$
+
+Si probamos esto, probamos que $(\forall s : \secu) P(s)$.
+\pause
+
+En este caso, $P$  (el \emph{predicado unario}) es
+$$ P(s) \equiv \rev(\rev(s)) = s$$
+}
+
+\frame{\frametitle{Lema}
+\[(\forall s : \secu) (\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
+
+Para probarlo vamos a usar también inducción estructural, con 
+\[P(s) \equiv (\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
+
+}
+
+\frame{\frametitle{Lema: Caso base}
+
+$P(\nil) \equiv (\forall a : \alpha) (\rev(\nil \circ a) = a \cons \rev(\nil))$
+
+Sea $ a : \alpha$, veamos que $  \rev(\nil \circ a) = a \cons \rev(\nil)$.
+
+\begin{center}
+\begin{tabular}{c l}
+\ph            & $\por{snoc} \rev(a \cons \nil) = a \cons \rev(\nil)$ \\
+               & $\por{rev2} \rev(\nil) \snoc a = a \cons \rev(\nil)$ \\
+               & $\por{rev1} \nil \snoc a = a \cons \rev(\nil)$ \\
+               & $\por{snoc} a \cons \nil = a \cons \rev(\nil)$ \\ 
+               & $\por{rev1} a \cons \nil = a \cons \nil$ \\ 
+               & $\por{\ph} true$ \\
+\end{tabular}
+\end{center}
+}
+
+
+\frame{\frametitle{Lema: Caso inductivo}
+Queremos ver que \[(\forall s : \secu) (\forall e : \alpha) (P(s) \implies P(e \cons s)) \]
+
+
+Sean $s : \secu$ y $e : \alpha$, y supongamos $P(s)$, es decir, \[(\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
+\vspace{1em}
+
+Veamos entonces que sucede con \[P(e \cons s) \equiv (\forall a : \alpha) (\rev((e \cons s) \circ a) = a \cons \rev(e \cons s))\]
+
+}
+
+\frame{\frametitle{Lema: Caso inductivo (cont.)}
+Sea $ a : \alpha$, 
+$\rev((e \cons s) \snoc a) = a \cons \rev(e \cons s)$  \\
+   
+\begin{center}
+\begin{tabular}{r l}
+\ph            & $\por{\ph} \rev(e \cons (s \snoc a)) = a \cons \rev(e \cons s)$ \\
+               & $\por{rev2} \rev(s \snoc a) \snoc e= a \cons \rev(e \cons s)$ \\
+               & $\por{ HI } (a \cons \rev(s)) \snoc e= a \cons \rev(e \cons s)$ \\
+               & $\por{snoc} a \cons (\rev(s) \snoc e) = a \cons \rev(e \cons s)$ \\
+               & $\por{rev2} a \cons (\rev(s) \snoc e) = a \cons (\rev(s) \snoc e)$ \\
+               & $\por{\ph} true$ \\
+\end{tabular}
+\end{center}
+}
+
+\frame{
+\huge
+\begin{center}
+¡Gracias!
+
+\vspace{1em}
+¿Preguntas?
+\end{center}
+}
+
+
+\end{document}
+      
+
