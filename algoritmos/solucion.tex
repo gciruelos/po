@@ -37,7 +37,7 @@
 
 Demuestre por inducción estructural que:
 
-$$(\forall s : \texttt{secu}(\alpha))(\tx{Reverso}(\tx{Reverso}(s)) =_{obs} s)$$
+$$(\forall s : \secu)(\tx{Reverso}(\tx{Reverso}(s)) =_{obs} s)$$
 
 Plantee claramente los lemas necesarios y demostrarlos.
 
@@ -102,7 +102,7 @@ $P(\nil) \equiv (\forall a : \alpha) (\rev(\nil \circ a) = a \cons \rev(\nil))$
 Sea $ a : \alpha$, veamos que $  \rev(\nil \circ a) = a \cons \rev(\nil)$.
 
 \begin{center}
-\begin{tabular}{c l}
+\begin{tabular}{r l}
 $\rev(\nil \circ a) = a \cons \rev(\nil)$ & $\por{snoc} \rev(a \cons \nil) = a \cons \rev(\nil)$ \\
                & $\por{rev2} \rev(\nil) \snoc a = a \cons \rev(\nil)$ \\
                & $\por{rev1} \nil \snoc a = a \cons \rev(\nil)$ \\
@@ -123,7 +123,7 @@ Veamos entonces que sucede con \[P(e \cons s) \equiv (\forall a : \alpha) (\rev(
 
 Sea $ a : \alpha$, 
 \begin{center}
-\begin{tabular}{c l}
+\begin{tabular}{r l}
 $\rev((e \cons s) \snoc a) = a \cons \rev(e \cons s)$ & $\por{\ph} \rev(e \cons (s \snoc a)) = a \cons \rev(e \cons s)$ \\
                & $\por{rev2} \rev(s \snoc a) \snoc e= a \cons \rev(e \cons s)$ \\
                & $\por{ HI } (a \cons \rev(s)) \snoc e= a \cons \rev(e \cons s)$ \\

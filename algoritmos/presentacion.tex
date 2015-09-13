@@ -55,7 +55,7 @@
 \section{Ejercicio} 
 \frame{\frametitle{Contexto}
 \begin{itemize}
-    \item El ejercicio podria formar parte de una práctica o de una clase introductoria al tema.  
+    \item El ejercicio podría formar parte de una práctica o de una clase introductoria al tema.  
    \item Es bueno como introducción al tema porque para resolverlo se utilizan técnicas comunes en todos los problemas de inducción estructural.
    \item Los alumnos terminaron la práctica de TADs, asistieron a la teórica del tema y empezaron a ejercitarlos.
 \end{itemize} 
@@ -70,9 +70,9 @@ Plantee claramente los lemas necesarios y demostrarlos antes de usarlos en la de
 }
 
 \frame{\frametitle{Solución}
-Recordemos el esquema de inducción del TAD \texttt{secu}.
+Recordemos el esquema de inducción del TAD $\secu$.
 
-$$P(nil) \land ((\forall a : \alpha) (\forall s : \sec P(s)) \implies P(a \cons s))$$
+$$P(\nil) \land ((\forall a : \alpha) (\forall s : \secu P(s)) \implies P(a \cons s))$$
 
 Si probamos esto, probamos que $(\forall s : \secu) P(s)$.
 \pause
@@ -98,10 +98,15 @@ Sea $ a : \alpha$, veamos que $  \rev(\nil \circ a) = a \cons \rev(\nil)$.
 \begin{center}
 \begin{tabular}{c l}
 \ph            & $\por{snoc} \rev(a \cons \nil) = a \cons \rev(\nil)$ \\
+\pause
                & $\por{rev2} \rev(\nil) \snoc a = a \cons \rev(\nil)$ \\
+\pause
                & $\por{rev1} \nil \snoc a = a \cons \rev(\nil)$ \\
+\pause
                & $\por{snoc} a \cons \nil = a \cons \rev(\nil)$ \\ 
+\pause
                & $\por{rev1} a \cons \nil = a \cons \nil$ \\ 
+\pause
                & $\por{\ph} true$ \\
 \end{tabular}
 \end{center}
@@ -126,10 +131,15 @@ $\rev((e \cons s) \snoc a) = a \cons \rev(e \cons s)$  \\
 \begin{center}
 \begin{tabular}{r l}
 \ph            & $\por{\ph} \rev(e \cons (s \snoc a)) = a \cons \rev(e \cons s)$ \\
+\pause
                & $\por{rev2} \rev(s \snoc a) \snoc e= a \cons \rev(e \cons s)$ \\
+\pause
                & $\por{ HI } (a \cons \rev(s)) \snoc e= a \cons \rev(e \cons s)$ \\
+\pause
                & $\por{snoc} a \cons (\rev(s) \snoc e) = a \cons \rev(e \cons s)$ \\
+\pause
                & $\por{rev2} a \cons (\rev(s) \snoc e) = a \cons (\rev(s) \snoc e)$ \\
+\pause 
                & $\por{\ph} true$ \\
 \end{tabular}
 \end{center}
