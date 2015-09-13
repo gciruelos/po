@@ -1,0 +1,117 @@
+\documentclass[hidelinks,a4paper,10pt, nofootinbib]{article}
+\usepackage[width=15.5cm, left=3cm, top=2.5cm, right=2cm, left=2cm, height= 24.5cm]{geometry}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[colorlinks=true, pagebackref=true]{hyperref}
+\usepackage{xcolor}
+\usepackage{enumerate}
+
+\title{Prueba de Oposición - Área Sistemas}  
+\author{Gonzalo Ciruelos}
+\date{14 de septiembre de 2015} 
+
+
+\begin{document}
+\maketitle
+
+\section*{Ejercicio}
+\texttt{MIL-STD-1750A} era una ISA de uso militar diseñada en 1980, que utilizaba un formato de números de punto flotante donde el signo de la mantisa era codificado en la misma utilizando notación complemento a 2. Sea el siguiente sistema de representación, basado en \texttt{MIL-STD-1750A}, denominado \texttt{MG-1750A}:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+ 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline
+ \multicolumn{7}{|c|}{exponente} & \multicolumn{5}{c|}{mantisa} \\ \hline
+\end{tabular}
+\end{center}
+
+Cada número se codifica como $m \times 2^e$, donde $m$ es la mantisa y $e$ el exponente. Se utilizan 5 bits para representar la mantisa, que está codificada en notación complemento a 2. El exponente está codificado en notación exceso 31, ocupando 7 bits.
+
+\begin{enumerate}[a)]
+    \item Indicar el mayor número representable, el menor y el positivo más cercano a cero. Dar las representaciones de cada uno.
+    \item Indicar el \emph{gap} entre el mayor número representable en el formarto \texttt{MG-1750A} y su inmediato anterior. 
+    \item ¿Existe algún número que tenga más de una representación en el formato \texttt{MIL-STD-1750A}? En caso afirmativo, mostrar un ejemplo indicando al menos dos representaciones. Justificar en caso contrario.
+\end{enumerate}
+
+\section*{Solución}
+Primero notemos que, para calcular la expansión decimal, lo que debe hacerse es primero convertir la mantisa de complemento a 2 a decimal y luego el obtener el exponente y restarle 31 (dado que esta en exceso 31).
+
+\subsection*{a)}
+\textbf{Máximo} Para el máximo intentamos maximizar tanto el exponente como la mantisa
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|}
+\hline
+1&1&1&1&1&1&1&0&1&1&1&1\\
+\hline
+\end{tabular}
+\end{center}
+El valor de la mantisa es $1+2+4+8 = 15$, dado que comienza con $0$ y por lo tanto es positivo.
+Además, el exponente vale $1+2+4+8+16+32+64 = 127$, pero como está en exceso 31, el valor real es $127 - 31 = 96$.
+
+Entonces, el valor del máximo numero representable es $15 \cdot 2^{96} \simeq 1.18 \cdot 10^{30}$.
+
+
+\textbf{Mínimo} Para el máximo intentamos minimizar la mantisa y maximizar el exponente, así nos va a dar el numero negativo de mayor módulo posible.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|}
+\hline
+1&1&1&1&1&1&1&1&0&0&0&0\\
+\hline
+\end{tabular}
+\end{center}
+Notemos que la mantisa comienza con $1$, por lo tanto es un número negativo. Para obtener el valor absoluto de un número en complemento a 2, lo que se debe hacer es complementarlo y sumarle 1. Por lo tanto $|m| = \overline{10000}_2 + 1_2 = 01111_2 + 1_2 = 15 + 1 = 16$. Entonces el valor de la mantisa es $-16$. Además, el exponente vale es igual que antes, y por lo tanto vale $127 - 31 = 96$.
+
+
+
+Entonces, el valor del mínimo numero representable es $-16 \cdot 2^{96} \simeq -1.26 \cdot 10^{30}$.
+
+\textbf{Positivo más cercano a 0} Se obtiene tomando el mínimo (mayor a 0) elemento posible en la mantisa y multiplicando por el menor exponente posible.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|}
+\hline
+0&0&0&0&0&0&0&0&0&0&0&1\\
+\hline
+\end{tabular}
+\end{center}
+
+El valor de la mantisa es $1$, dado que comienza con $0$ y por lo tanto es positivo.
+Además, el exponente vale $0$, pero como está en exceso 31, el valor real es $0 - 31 = -31$.
+
+Entonces, el valor del máximo numero representable es $1 \cdot 2^{-31} \simeq 4.65 \cdot 10^{10}$.
+
+\subsection*{b)}
+Se define al \emph{gap} como la diferencia en valor absoluto entre dos números consecutivos representables en un sistema de punto flotante.
+
+
+El elemento máximo representable, como dijimos antes, es
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|}
+\hline
+1&1&1&1&1&1&1&0&1&1&1&1\\
+\hline
+\end{tabular}
+\end{center}
+
+Ahora bien, para obtener el inmediato anterior, hay que achicar el exponente o achicar la mantisa. Se puede verificar que reducirlo con la mantisa da un número mayor que reducirlo con el exponente. Este número es
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|}
+\hline
+1&1&1&1&1&1&1&0&1&1&1&0\\
+\hline
+\end{tabular}
+\end{center}
+
+Que vale $(2+4+8) \cdot 2^{96} = 14 \cdot 2^{96}$. Por lo tanto, el \emph{gap} es $|15 \cdot 2^{96} - 14 \cdot 2^{96}| = 2^{96}$.
+
+\subsection*{c)}
+Los números no tienen representación única. Un ejemplo es el 0, que tiene $2^7$ representaciones distintas ( $00000$ en la mantisa y cualquier combinacion de 1's y 0's en el exponente).
+
+Las potencias de 2 también tienen varias representaciones.
+
+
+\end{document}
