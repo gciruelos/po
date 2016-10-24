@@ -66,13 +66,26 @@ Demuestre por inducción estructural que:
 
 $$(\forall s : \texttt{secu}(\alpha))(\tx{Reverso}(\tx{Reverso}(s)) =_{obs} s)$$
 
-Plantee claramente los lemas necesarios y demostrarlos antes de usarlos en la demostración principal.
+Plantee claramente los lemas necesarios y demustr\'elos.
 }
+
+\frame{
+Recordemos algunas definiciones, $(\forall a: \alpha) (\forall s : \secu$)
+\[\rev(\nil) \equiv \nil \tag{rev1}\]
+\[\rev(a \cons s) \equiv Reverso(s) \snoc a \tag{rev2}\]
+
+Además,
+\[s \circ e \equiv \textbf{ if } \text{vacia?}(s) \textbf{ then } e \cons \nil \textbf{ else } \prim(s) \cons (\fin(s) \circ e) \tag{snoc}\]
+
+\[\prim(a \cons s) \equiv a  \tag{prim}\]
+\[\fin(a \cons s) \equiv s  \tag{fin}\]
+}
+
 
 \frame{\frametitle{Solución}
 Recordemos el esquema de inducción del TAD $\secu$.
 
-$$P(\nil) \land ((\forall a : \alpha) (\forall s : \secu P(s)) \implies P(a \cons s))$$
+$$P(\nil) \land ((\forall s : \secu)\ (P(s) \ \implies \ (\forall a : \alpha) P(a \cons s))$$
 
 Si probamos esto, probamos que $(\forall s : \secu) P(s)$.
 \pause
@@ -114,13 +127,13 @@ Sea $ a : \alpha$, veamos que $  \rev(\nil \circ a) = a \cons \rev(\nil)$.
 
 
 \frame{\frametitle{Lema: Caso inductivo}
-Queremos ver que \[(\forall s : \secu) (\forall e : \alpha) (P(s) \implies P(e \cons s)) \]
+Queremos ver que \[(\forall s : \secu))(P(s) \implies (\forall e : \alpha) P(e \cons s)) \]
 
 
-Sean $s : \secu$ y $e : \alpha$, y supongamos $P(s)$, es decir, \[(\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
+Sea $s : \secu$ y supongamos $P(s)$, es decir, \[(\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
 \vspace{1em}
 
-Veamos entonces que sucede con \[P(e \cons s) \equiv (\forall a : \alpha) (\rev((e \cons s) \circ a) = a \cons \rev(e \cons s))\]
+Sea $e : \alpha$. Veamos entonces que sucede con \[P(e \cons s) \equiv (\forall a : \alpha) (\rev((e \cons s) \circ a) = a \cons \rev(e \cons s))\]
 
 }
 
@@ -130,7 +143,7 @@ $\rev((e \cons s) \snoc a) = a \cons \rev(e \cons s)$  \\
    
 \begin{center}
 \begin{tabular}{r l}
-\ph            & $\por{\ph} \rev(e \cons (s \snoc a)) = a \cons \rev(e \cons s)$ \\
+\ph            & $\por{snoc} \rev(e \cons (s \snoc a)) = a \cons \rev(e \cons s)$ \\
 \pause
                & $\por{rev2} \rev(s \snoc a) \snoc e= a \cons \rev(e \cons s)$ \\
 \pause

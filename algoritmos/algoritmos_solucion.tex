@@ -12,7 +12,7 @@
 \usepackage{mathpazo}
 
 \setlength{\parindent}{4em}
-\setlength{\parskip}{1em}
+\setlength{\parskip}{0.3em}
 
 \title{Prueba de Oposición - Área Algoritmos}  
 \author{Gonzalo Ciruelos}
@@ -53,7 +53,7 @@ Además,
 
 Recordemos el esquema de inducción del TAD \texttt{secu}.
 
-$$P(\nil)\  \land \  (\forall a : \alpha) (\forall s : \secu) (P(s) \implies P(a \cons s))$$
+$$P(\nil)\  \land \  (\forall a : \alpha) (\forall s : \secu) (P(s) \implies (\forall a : \alpha) P(a \cons s))$$
 
 Si probamos esto, probamos que $(\forall s : \secu) P(s)$.
 
@@ -75,7 +75,7 @@ $P(\nil)$ & $\por{\phantom{rev1}} \rev(\rev(\nil)) = \nil$ \\
 \end{center}
 
 \subsection*{Caso inductivo}
-El caso inductivo en este caso es $(\forall a : \alpha) (\forall s : \secu) (P(s) \implies P(a \cons s))$
+El caso inductivo en este caso es $(\forall s : \secu) (P(s) \implies (\forall a : \alpha) P(a \cons s))$
 
 Sean $a : \alpha$ y $s : \secu$. Supongo $P(s)$ y quiero llegar a $P(a \cons s)$
 
@@ -113,13 +113,14 @@ $\rev(\nil \circ a) = a \cons \rev(\nil)$ & $\por{snoc} \rev(a \cons \nil) = a \
 \end{center}
 
 \subsubsection*{Caso inductivo}
-Queremos ver que \[(\forall s : \secu) (\forall e : \alpha) (P(s) \implies P(e \cons s)) \]
+Queremos ver que \[(\forall s : \secu))(P(s) \implies (\forall e : \alpha) P(e \cons s)) \]
 
 
-Sean $s : \secu$ y $e : \alpha$, y supongamos $P(s)$, es decir, \[(\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\].
 
+Sea $s : \secu$ y supongamos $P(s)$, es decir, \[(\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
+\vspace{1em}
 
-Veamos entonces que sucede con \[P(e \cons s) \equiv (\forall a : \alpha) (\rev((e \cons s) \circ a) = a \cons \rev(e \cons s))\]
+Sea $e : \alpha$. Veamos entonces que sucede con \[P(e \cons s) \equiv (\forall a : \alpha) (\rev((e \cons s) \circ a) = a \cons \rev(e \cons s))\]
 
 Sea $ a : \alpha$, 
 \begin{center}
