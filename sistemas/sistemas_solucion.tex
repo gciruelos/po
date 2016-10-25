@@ -12,7 +12,7 @@
 
 \title{Prueba de Oposición - Área Sistemas}  
 \author{Gonzalo Ciruelos}
-\date{14 de septiembre de 2015} 
+\date{25 de octubre de 2015} 
 
 
 \begin{document}
@@ -50,10 +50,10 @@ Primero notemos que, para calcular la expansión decimal, lo que debe hacerse es
 El valor de la mantisa es $1+2+4+8 = 15$, dado que comienza con $0$ y por lo tanto es positivo.
 Además, el exponente vale $1+2+4+8+16+32+64 = 127$, pero como está en exceso 31, el valor real es $127 - 31 = 96$.
 
-Entonces, el valor del máximo numero representable es $15 \cdot 2^{96} \simeq 1.18 \cdot 10^{30}$.
+Entonces, el valor del máximo número representable es $15 \cdot 2^{96} \simeq 1.18 \cdot 10^{30}$.
 
 
-\textbf{Mínimo} Para el máximo intentamos minimizar la mantisa y maximizar el exponente, así nos va a dar el numero negativo de mayor módulo posible.
+\textbf{Mínimo} Para el máximo intentamos minimizar la mantisa y maximizar el exponente, así nos va a dar el número negativo de mayor módulo posible.
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|}
 \hline
@@ -65,7 +65,7 @@ Notemos que la mantisa comienza con $1$, por lo tanto es un número negativo. Pa
 
 
 
-Entonces, el valor del mínimo numero representable es $-16 \cdot 2^{96} \simeq -1.26 \cdot 10^{30}$.
+Entonces, el valor del mínimo número representable es $-16 \cdot 2^{96} \simeq -1.26 \cdot 10^{30}$.
 
 \textbf{Positivo más cercano a 0} Se obtiene tomando el mínimo (mayor a 0) elemento posible en la mantisa y multiplicando por el menor exponente posible.
 
@@ -80,7 +80,7 @@ Entonces, el valor del mínimo numero representable es $-16 \cdot 2^{96} \simeq 
 El valor de la mantisa es $1$, dado que comienza con $0$ y por lo tanto es positivo.
 Además, el exponente vale $0$, pero como está en exceso 31, el valor real es $0 - 31 = -31$.
 
-Entonces, el valor del máximo numero representable es $1 \cdot 2^{-31} \simeq 4.65 \cdot 10^{10}$.
+Entonces, el valor del máximo número representable es $1 \cdot 2^{-31} \simeq 4.65 \cdot 10^{10}$.
 
 \subsection*{b)}
 Se define al \emph{gap} como la diferencia en valor absoluto entre dos números consecutivos representables en un sistema de punto flotante.

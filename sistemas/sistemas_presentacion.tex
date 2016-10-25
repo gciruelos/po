@@ -48,7 +48,7 @@
 \section{Ejercicio} 
 \frame{\frametitle{Contexto}
 \begin{itemize}
-    \item El ejercicio es una versión acotada de un ejecicio de la primera práctica.
+    \item El ejercicio es una versión acotada de un ejercicio de la primera práctica.
     \item Podría darse por ejemplo en una clase de repaso.  
    \item Abarca tanto la parte de representación de números enteros como de números reales.
    \item Se espera que el alumno conozca ambos temas y los haya ejercitado.
@@ -71,11 +71,108 @@ Cada número se codifica como $m \times 2^e$, donde $m$ es la mantisa y $e$ el e
 \frame{\frametitle{Enunciado (cont.)}
 \begin{enumerate}[a)]
     \item Indicar el mayor número representable, el menor y el positivo más cercano a cero. Dar las representaciones de cada uno.
-    \pause
+\end{enumerate}
+}
+
+\frame{\frametitle{Solución}
+Primero notemos que, para calcular la expansión decimal, lo que debe hacerse es primero convertir la mantisa de complemento a 2 a decimal y luego el obtener el exponente y restarle 31 (dado que esta en exceso 31).
+}
+
+\frame{\frametitle{Solución a)}
+
+\textbf{Máximo} Para el máximo intentamos maximizar tanto el exponente como la mantisa
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|}
+\hline
+1&1&1&1&1&1&1&0&1&1&1&1\\
+\hline
+\end{tabular}
+\end{center}
+El valor de la mantisa es $1+2+4+8 = 15$, dado que comienza con $0$ y por lo tanto es positivo.
+Además, el exponente vale $1+2+4+8+16+32+64 = 127$, pero como está en exceso 31, el valor real es $127 - 31 = 96$.
+
+Entonces, el valor del máximo número representable es $15 \cdot 2^{96} \simeq 1.18 \cdot 10^{30}$.
+}
+
+\frame{\frametitle{Solución a) (cont.)}
+\textbf{Mínimo} Para el máximo intentamos minimizar la mantisa y maximizar el exponente, así nos va a dar el número negativo de mayor módulo posible.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|}
+\hline
+1&1&1&1&1&1&1&1&0&0&0&0\\
+\hline
+\end{tabular}
+\end{center}
+Notemos que la mantisa comienza con $1$, por lo tanto es un número negativo. Para obtener el valor absoluto de un número en complemento a 2, lo que se debe hacer es complementarlo y sumarle 1. Por lo tanto $|m| = \overline{10000}_2 + 1_2 = 01111_2 + 1_2 = 15 + 1 = 16$. Entonces el valor de la mantisa es $-16$. Además, el exponente vale es igual que antes, y por lo tanto vale $127 - 31 = 96$.
+
+
+
+Entonces, el valor del mínimo número representable es $-16 \cdot 2^{96} \simeq -1.26 \cdot 10^{30}$.
+}
+
+\frame{\frametitle{Solución a) (cont.)}
+\textbf{Positivo más cercano a 0} Se obtiene tomando el mínimo (mayor a 0) elemento posible en la mantisa y multiplicando por el menor exponente posible.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|}
+\hline
+0&0&0&0&0&0&0&0&0&0&0&1\\
+\hline
+\end{tabular}
+\end{center}
+
+El valor de la mantisa es $1$, dado que comienza con $0$ y por lo tanto es positivo.
+Además, el exponente vale $0$, pero como está en exceso 31, el valor real es $0 - 31 = -31$.
+
+Entonces, el valor del máximo número representable es $1 \cdot 2^{-31} \simeq 4.65 \cdot 10^{10}$.
+}
+
+
+\frame{\frametitle{Enunciado (cont.)}
+\begin{enumerate}[a)]
+    \item Indicar el mayor número representable, el menor y el positivo más cercano a cero. Dar las representaciones de cada uno.
     \item Indicar el \emph{gap} entre el mayor número representable en el formato dado y su inmediato anterior. 
-    \pause
+\end{enumerate}
+}
+\frame{\frametitle{Solución b)}
+Se define al \emph{gap} como la diferencia en valor absoluto entre dos números consecutivos representables en un sistema de punto flotante.
+}
+
+\frame{\frametitle{Solución b) (cont.)}
+El elemento máximo representable, como dijimos antes, es
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|}
+\hline
+1&1&1&1&1&1&1&0&1&1&1&1\\
+\hline
+\end{tabular}
+\end{center}
+
+Ahora bien, para obtener el inmediato anterior, hay que achicar el exponente o achicar la mantisa. Se puede verificar que reducirlo con la mantisa da un número mayor que reducirlo con el exponente. Este número es
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|}
+\hline
+1&1&1&1&1&1&1&0&1&1&1&0\\
+\hline
+\end{tabular}
+\end{center}
+
+Que vale $(2+4+8) \cdot 2^{96} = 14 \cdot 2^{96}$. Por lo tanto, el \emph{gap} es $|15 \cdot 2^{96} - 14 \cdot 2^{96}| = 2^{96}$.
+}
+
+\frame{\frametitle{Enunciado (cont.)}
+\begin{enumerate}[a)]
+    \item Indicar el mayor número representable, el menor y el positivo más cercano a cero. Dar las representaciones de cada uno.
+    \item Indicar el \emph{gap} entre el mayor número representable en el formato dado y su inmediato anterior. 
     \item ¿Existe algún número que tenga más de una representación en este formato? En caso afirmativo, mostrar un ejemplo indicando al menos dos representaciones. Justificar en caso contrario.
 \end{enumerate}
+}
+
+
+\frame{\frametitle{Solución c)}
+Los números no tienen representación única. Un ejemplo es el 0, que tiene $2^7$ representaciones distintas ($00000$ en la mantisa y cualquier combinación de 1's y 0's en el exponente).
 }
 
 \frame{
