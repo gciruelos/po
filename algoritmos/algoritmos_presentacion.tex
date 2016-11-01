@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{enumerate}
+\usepackage{algpseudocode}
 
 \newcommand{\tx}[1]{\text{#1}}
 \newcommand{\secu}{\ensuremath\texttt{secu}(\alpha)}
@@ -20,7 +21,7 @@
 \begin{document}
 \title{Prueba de Oposición - Área Algoritmos}  
 \author{Gonzalo Ciruelos}
-\date{14 de septiembre de 2015} 
+\date{2 de noviembre de 2016}
 
 \frame{\titlepage} 
 
@@ -29,7 +30,7 @@
 \begin{itemize}
     \item Materia :  \emph{Algoritmos y Estructuras de Datos II}
     \vspace{2em}
-    \item Práctica : \emph{Segunda práctica - Demostración de propiedades}
+    \item Práctica : \emph{S\'eptima práctica - Dividir y Conquistar}
 \end{itemize}
 }
 
@@ -39,7 +40,7 @@
     \item Primera parte
     \begin{itemize}
         \item Especificación con Tipos Abstractos de Datos
-        \item \textbf{Demostración de propiedades}
+        \item Demostración de propiedades
         \item Diseño: invariante de representación y función de abstracción
     \end{itemize}
     \item Segunda Parte
@@ -47,7 +48,7 @@
         \item Complejidad Algorítmica
         \item Diseño: elección de estructuras de datos 
         \item Ordenamiento
-        \item Dividir y Conquistar
+        \item \textbf{Dividir y Conquistar}
     \end{itemize}
 \end{itemize}
 }
@@ -56,107 +57,92 @@
 \frame{\frametitle{Contexto}
 \begin{itemize}
     \item El ejercicio podría formar parte de una práctica o de una clase introductoria al tema.  
-   \item Es bueno como introducción al tema porque para resolverlo se utilizan técnicas comunes en todos los problemas de inducción estructural.
-   \item Los alumnos terminaron la práctica de TADs, asistieron a la teórica del tema y empezaron a ejercitarlos.
+   \item Es bueno como introducción al tema porque para resolverlo porque es muy fácil pero permite ver el potencial de la t\'ecnica.
+   \item Supone que los alumnos asistieron a la teórica del tema y que conocen la existencia del teorema maestro..
 \end{itemize} 
 }
 
 \frame{\frametitle{Enunciado}
-Demuestre por inducción estructural que:
-
-$$(\forall s : \texttt{secu}(\alpha))(\tx{Reverso}(\tx{Reverso}(s)) =_{obs} s)$$
-
-Plantee claramente los lemas necesarios y demustr\'elos.
+Encuentre un algoritmo para calcular $a^b$ en tiempo logarítmico en $b$.
+Piense cómo reutilizar los resultados ya calculados.
+Justifique la complejidad del algoritmo dado.
 }
 
-\frame{
-Recordemos algunas definiciones, $(\forall a: \alpha) (\forall s : \secu$)
-\[\rev(\nil) \equiv \nil \tag{rev1}\]
-\[\rev(a \cons s) \equiv Reverso(s) \snoc a \tag{rev2}\]
-
-Además,
-\[s \circ e \equiv \textbf{ if } \text{vacia?}(s) \textbf{ then } e \cons \nil \textbf{ else } \prim(s) \cons (\fin(s) \circ e) \tag{snoc}\]
-
-\[\prim(a \cons s) \equiv a  \tag{prim}\]
-\[\fin(a \cons s) \equiv s  \tag{fin}\]
+\frame{\frametitle{Idea de la solución}
+  Notar que
+  \[
+    a^b = 
+      \left\{
+        \begin{array}{ll}
+           1                              & \mbox{si $b = 0$}      \\
+           a^{\frac{b}2} a^{\frac{b}2}    & \mbox{si $b > 0$ y $b$ es par}   \\
+           a^{\frac{b-1}2} a^{\frac{b-1}2}  a & \mbox{si $b$ es impar} 
+        \end{array}
+      \right.
+  \] 
 }
 
-
-\frame{\frametitle{Solución}
-Recordemos el esquema de inducción del TAD $\secu$.
-
-$$P(\nil) \land ((\forall s : \secu)\ (P(s) \ \implies \ (\forall a : \alpha) P(a \cons s))$$
-
-Si probamos esto, probamos que $(\forall s : \secu) P(s)$.
-\pause
-
-En este caso, $P$  (el \emph{predicado unario}) es
-$$ P(s) \equiv \rev(\rev(s)) = s$$
+\frame{\frametitle{Algoritmo}
+\begin{algorithmic}
+\Function{Pow}{$a,b$}
+  \If {$b == 0\geq maxval$}
+    \State \Return $1$
+  \ElsIf {esPar($b$)}
+    \State \Return Pow$\big(a, \frac{b}{2}\big)^2$
+  \Else
+    \State \Return Pow$\big(a, \frac{b-1}{2}\big)^2$ $\cdot$ $a$
+  \EndIf
+\EndFunction
+\end{algorithmic}
 }
 
-\frame{\frametitle{Lema}
-\[(\forall s : \secu) (\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
+\frame{\frametitle{Complejidad}
+Formulación recursiva de la complejidad:
 
-Para probarlo vamos a usar también inducción estructural, con 
-\[P(s) \equiv (\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
+\[
+ T(a, 0) = O(1)
+\]
 
+\[
+  T(a,b) = T\bigg(a, \frac{b}2\bigg) + O(1)
+\]
+
+Como se ve, solo depende de $b$:
+\[
+ T(0) = O(1)
+\]
+
+\[
+  T(b) = T\bigg(\frac{b}2\bigg) + O(1)
+\]
 }
 
-\frame{\frametitle{Lema: Caso base}
+\frame{\frametitle{Complejidad (cont.)}
+Recordando el teorema maestro\dots
 
-$P(\nil) \equiv (\forall a : \alpha) (\rev(\nil \circ a) = a \cons \rev(\nil))$
-
-Sea $ a : \alpha$, veamos que $  \rev(\nil \circ a) = a \cons \rev(\nil)$.
-
-\begin{center}
-\begin{tabular}{c l}
-\ph            & $\por{snoc} \rev(a \cons \nil) = a \cons \rev(\nil)$ \\
-\pause
-               & $\por{rev2} \rev(\nil) \snoc a = a \cons \rev(\nil)$ \\
-\pause
-               & $\por{rev1} \nil \snoc a = a \cons \rev(\nil)$ \\
-\pause
-               & $\por{snoc} a \cons \nil = a \cons \rev(\nil)$ \\ 
-\pause
-               & $\por{rev1} a \cons \nil = a \cons \nil$ \\ 
-\pause
-               & $\por{\ph} true$ \\
-\end{tabular}
-\end{center}
-}
-
-
-\frame{\frametitle{Lema: Caso inductivo}
-Queremos ver que \[(\forall s : \secu))(P(s) \implies (\forall e : \alpha) P(e \cons s)) \]
-
-
-Sea $s : \secu$ y supongamos $P(s)$, es decir, \[(\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
-\vspace{1em}
-
-Sea $e : \alpha$. Veamos entonces que sucede con \[P(e \cons s) \equiv (\forall a : \alpha) (\rev((e \cons s) \circ a) = a \cons \rev(e \cons s))\]
+Supongamos que \[T(n) = a T\bigg(\frac{n}{b}\bigg) + f(n) \]
+Entonces,
+\begin{enumerate}
+  \item Si $f(n) \in O(n^c)$ donde $c < \log_b a$, luego $T(n) \in \Theta(n^{\log_b a})$
+  \item Si $f(n) \in O(n^{\log_b a})$, luego $T(n) \in \Theta(n^{\log_b a} \log n)$
+  \item Si $f(n) \in O(n^c)$ donde $c > \log_b a$ y $a f(\frac{n}{b}) \leq k f(n)$ para alguna constante $k < 1$ y $n$ suficientemente grande, luego $T(n) \in \Theta(f(n))$
+\end{enumerate}
 
 }
 
-\frame{\frametitle{Lema: Caso inductivo (cont.)}
-Sea $ a : \alpha$, 
-$\rev((e \cons s) \snoc a) = a \cons \rev(e \cons s)$  \\
-   
-\begin{center}
-\begin{tabular}{r l}
-\ph            & $\por{snoc} \rev(e \cons (s \snoc a)) = a \cons \rev(e \cons s)$ \\
-\pause
-               & $\por{rev2} \rev(s \snoc a) \snoc e= a \cons \rev(e \cons s)$ \\
-\pause
-               & $\por{ HI } (a \cons \rev(s)) \snoc e= a \cons \rev(e \cons s)$ \\
-\pause
-               & $\por{snoc} a \cons (\rev(s) \snoc e) = a \cons \rev(e \cons s)$ \\
-\pause
-               & $\por{rev2} a \cons (\rev(s) \snoc e) = a \cons (\rev(s) \snoc e)$ \\
-\pause 
-               & $\por{\ph} true$ \\
-\end{tabular}
-\end{center}
+\frame{\frametitle{Complejidad (cont.)}
+En este caso,
+
+\[ a = 1 \]
+\[ b = 2 \]
+\[ f(n) \in O(1) \]
+
+Entonces, $f(n) \in O(1) = O(n^0)$ y $0 = log_2(1)$, entonces estamos en el caso \textbf{2}.
+
+Luego, utilizando el Teorema Maestro, obtenemos que
+\[T(n) \in \Theta(n^{log_2 1} \log n) = \Theta(\log n) \]
 }
+
 
 \frame{
 \huge

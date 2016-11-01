@@ -1,0 +1,141 @@
+\documentclass[hidelinks,a4paper,10pt, nofootinbib]{article}
+\usepackage[width=15.5cm, left=3cm, top=2.5cm, right=2cm, left=2cm, height= 24.5cm]{geometry}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[colorlinks=true, pagebackref=true]{hyperref}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{mathpazo}
+
+\setlength{\parindent}{4em}
+\setlength{\parskip}{0.3em}
+
+\title{Prueba de Oposición - Área Algoritmos}  
+\author{Gonzalo Ciruelos}
+\date{14 de septiembre de 2015} 
+
+\newcommand{\tx}[1]{\text{#1}}
+\newcommand{\secu}{\ensuremath\texttt{secu}(\alpha)}
+\newcommand{\rev}{\text{Reverso}}
+\newcommand{\cons}{\bullet}
+\newcommand{\snoc}{\circ}
+\newcommand{\nil}{\text{nil}}
+\newcommand{\prim}{\text{prim}}
+\newcommand{\fin}{\text{fin}}
+
+\newcommand{\por}[1]{\overset{\text{#1}}{\equiv}}
+\newcommand{\ph}{\phantom{rev1}}
+
+\begin{document}
+\maketitle
+
+\section*{Ejercicio}
+
+Demuestre por inducción estructural que:
+
+$$(\forall s : \secu)(\tx{Reverso}(\tx{Reverso}(s)) =_{obs} s)$$
+
+Plantee claramente los lemas necesarios y demostrarlos.
+
+
+\section*{Solución}
+
+Primero recordemos la definición de \rev.
+\[\rev(\nil) \equiv \nil \tag{rev1}\]
+\[\rev(a \cons s) \equiv Reverso(s) \snoc a \tag{rev2}\]
+
+Además,
+\[s \circ e \equiv \textbf{ if } \text{vacia?}(s) \textbf{ then } e \cons \nil \textbf{ else } \prim(s) \cons (\fin(s) \circ e) \tag{snoc}\]
+
+Recordemos el esquema de inducción del TAD \texttt{secu}.
+
+$$P(\nil)\  \land \  (\forall a : \alpha) (\forall s : \secu) (P(s) \implies (\forall a : \alpha) P(a \cons s))$$
+
+Si probamos esto, probamos que $(\forall s : \secu) P(s)$.
+
+En este caso, $P$  (el \emph{predicado unario}) es
+$$ P(s) \equiv \rev(\rev(s)) = s$$
+
+
+
+\subsection*{Caso base}
+El caso base en este caso es $P(\nil)$
+
+\begin{center}
+\begin{tabular}{c l}
+$P(\nil)$ & $\por{\phantom{rev1}} \rev(\rev(\nil)) = \nil$ \\
+          & $\por{rev1} \rev(\nil) = \nil$ \\
+          & $\por{rev1} \nil = \nil$  \\
+          & $\por{\phantom{rev1}} true$ \\
+\end{tabular}
+\end{center}
+
+\subsection*{Caso inductivo}
+El caso inductivo en este caso es $(\forall s : \secu) (P(s) \implies (\forall a : \alpha) P(a \cons s))$
+
+Sean $a : \alpha$ y $s : \secu$. Supongo $P(s)$ y quiero llegar a $P(a \cons s)$
+
+\begin{center}
+\begin{tabular}{c l}
+$P(a \cons s)$ & $\por{\ph} \rev(\rev(a \cons s)) = a \cons s$ \\
+               & $\por{rev2} \rev(\rev(s) \circ a) = a \cons s$ \\
+               & $\por{lema} a \cons \rev(\rev(s)) = a \cons s$ \\
+               & $\por{ HI } a \cons s = a \cons s$ \\ 
+               & $\por{\ph} true$ \\
+\end{tabular}
+\end{center}
+
+\subsection*{Lema}
+
+\[(\forall s : \secu) (\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
+
+Para probarlo vamos a usar también inducción estructural, con 
+\[P(s) \equiv (\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
+
+\subsubsection*{Caso base}
+$P(\nil) \equiv (\forall a : \alpha) (\rev(\nil \circ a) = a \cons \rev(\nil))$
+
+Sea $ a : \alpha$, veamos que $  \rev(\nil \circ a) = a \cons \rev(\nil)$.
+
+\begin{center}
+\begin{tabular}{r l}
+$\rev(\nil \circ a) = a \cons \rev(\nil)$ & $\por{snoc} \rev(a \cons \nil) = a \cons \rev(\nil)$ \\
+               & $\por{rev2} \rev(\nil) \snoc a = a \cons \rev(\nil)$ \\
+               & $\por{rev1} \nil \snoc a = a \cons \rev(\nil)$ \\
+               & $\por{snoc} a \cons \nil = a \cons \rev(\nil)$ \\ 
+               & $\por{rev1} a \cons \nil = a \cons \nil$ \\ 
+               & $\por{\ph} true$ \\
+\end{tabular}
+\end{center}
+
+\subsubsection*{Caso inductivo}
+Queremos ver que \[(\forall s : \secu))(P(s) \implies (\forall e : \alpha) P(e \cons s)) \]
+
+
+
+Sea $s : \secu$ y supongamos $P(s)$, es decir, \[(\forall a : \alpha) (\rev(s \circ a) = a \cons \rev(s))\]
+\vspace{1em}
+
+Sea $e : \alpha$. Veamos entonces que sucede con \[P(e \cons s) \equiv (\forall a : \alpha) (\rev((e \cons s) \circ a) = a \cons \rev(e \cons s))\]
+
+Sea $ a : \alpha$, 
+\begin{center}
+\begin{tabular}{r l}
+$\rev((e \cons s) \snoc a) = a \cons \rev(e \cons s)$ & $\por{\ph} \rev(e \cons (s \snoc a)) = a \cons \rev(e \cons s)$ \\
+               & $\por{rev2} \rev(s \snoc a) \snoc e= a \cons \rev(e \cons s)$ \\
+               & $\por{ HI } (a \cons \rev(s)) \snoc e= a \cons \rev(e \cons s)$ \\
+               & $\por{snoc} a \cons (\rev(s) \snoc e) = a \cons \rev(e \cons s)$ \\
+               & $\por{rev2} a \cons (\rev(s) \snoc e) = a \cons (\rev(s) \snoc e)$ \\
+               & $\por{\ph} true$ \\
+\end{tabular}
+\end{center}
+
+
+Esto completa la demostración.
+
+\end{document}
+
