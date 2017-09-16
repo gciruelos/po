@@ -1,6 +1,6 @@
-.PHONY: all sistemas algoritmos
+.PHONY: all sistemas algoritmos teoria
 
-all: algoritmos sistemas
+all: algoritmos sistemas teoria
 
 algoritmos_presentacion.pdf: algoritmos/algoritmos_presentacion.tex
 	pdflatex $<
@@ -22,9 +22,21 @@ sistemas_solucion.pdf: sistemas/sistemas_solucion.tex
 	pdflatex $<
 	pdflatex $<
 
+teoria_presentacion.pdf: teoria/teoria_presentacion.tex
+	pdflatex $<
+	pdflatex $<
+	pdflatex $<
+
+teoria_solucion.pdf: teoria/teoria_solucion.tex
+	pdflatex $<
+	pdflatex $<
+	pdflatex $<
+
 algoritmos: algoritmos_presentacion.pdf algoritmos_solucion.pdf
 
 sistemas: sistemas_presentacion.pdf sistemas_solucion.pdf
+
+teoria: teoria_presentacion.pdf teoria_solucion.pdf
 
 clean:
 	rm -f *.aux

@@ -1,0 +1,73 @@
+\documentclass{beamer}
+\usepackage{beamerthemeshadow}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{enumerate}
+
+\newcommand{\ele}{\mathcal{L}}
+
+\begin{document}
+\title{Prueba de Oposición - Área Teoría}  
+\author{Gonzalo Ciruelos}
+\date{19 de septiembre de 2017} 
+
+\frame{\titlepage} 
+
+\section{Presentación} 
+\frame{\frametitle{Presentación} 
+\begin{itemize}
+    \item Materia :  \emph{Teoría de Lenguajes}
+    \vspace{2em}
+    \item Práctica : \emph{???}
+\end{itemize}
+}
+
+\section{Prácticas de la materia} 
+\frame{\frametitle{Presentación} 
+\begin{itemize}
+    \item Primera parte
+    \begin{itemize}
+        \item{???}
+    \end{itemize}
+    \item Segunda Parte
+    \begin{itemize}
+        \item{???}
+    \end{itemize}
+\end{itemize}
+}
+
+\section{Ejercicio} 
+\frame{\frametitle{Contexto}
+\begin{itemize}
+  \item ???
+\end{itemize} 
+}
+
+\frame{\frametitle{Enunciado}
+
+Dado $\ele = \{0^i 1^j\ |\ i > j \, \lor \, i \text{ es par}\}$
+
+\begin{enumerate}[a.]
+\item Demostrar que $\ele$ cumple
+  \[\forall \alpha( \alpha \in \ele \land |\alpha| \geq 2 \implies \]
+  \[
+            \exists x \exists y  \exists z (
+                        \alpha = x y z \land
+                        |x y| \leq 2 \land
+                        |y| \geq 1 \land
+                        \forall i (x y^i z \in \ele))) \]
+\item Demostrar que $\ele$ no es regular.
+\end{enumerate}
+}
+
+\frame{
+\huge
+\begin{center}
+¿Preguntas?
+\end{center}
+}
+
+\end{document}
+      
+

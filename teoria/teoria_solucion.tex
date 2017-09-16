@@ -1,0 +1,116 @@
+\documentclass[hidelinks,a4paper,10pt, nofootinbib]{article}
+\usepackage[width=15.5cm, left=3cm, top=2.5cm, right=2cm, left=2cm, height= 24.5cm]{geometry}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[colorlinks=true, pagebackref=true]{hyperref}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{mathpazo}
+
+\setlength{\parindent}{4em}
+\setlength{\parskip}{0.3em}
+
+\title{Prueba de Oposición - Área Teoría}  
+\author{Gonzalo Ciruelos}
+\date{2 de octubre de 2017}
+
+\newcommand{\tx}[1]{\text{#1}}
+\newcommand{\secu}{\ensuremath\texttt{secu}(\alpha)}
+\newcommand{\rev}{\text{Reverso}}
+\newcommand{\cons}{\bullet}
+\newcommand{\snoc}{\circ}
+\newcommand{\nil}{\text{nil}}
+\newcommand{\prim}{\text{prim}}
+\newcommand{\fin}{\text{fin}}
+\newcommand{\ele}{\mathcal{L}}
+\newcommand{\elecomp}{\overline{\ele}}
+
+\newcommand{\por}[1]{\overset{\text{#1}}{\equiv}}
+\newcommand{\ph}{\phantom{rev1}}
+
+\begin{document}
+\maketitle
+
+\section*{Ejercicio}
+
+Dado $\ele = \{0^i 1^j\ |\ i > j \, \lor \, i \text{ es par}\}$
+
+\begin{enumerate}[a.]
+\item Demostrar que $\ele$ cumple
+  \[\forall \alpha( \alpha \in \ele \land |\alpha| \geq 2 \implies 
+            \exists x \exists y  \exists z (
+                        \alpha = x y z \land
+                        |x y| \leq 2 \land
+                        |y| \geq 1 \land
+                        \forall i (x y^i z \in \ele))) \]
+\item Demostrar que $\ele$ no es regular.
+\end{enumerate}
+                         
+\section*{Solución}
+
+\begin{enumerate}[a.]
+\item Sea $\alpha \in \ele$ tal que $|\alpha| \geq 2$.
+Como $\alpha \in \ele$, entonces $\alpha = 0^i1^j$ para algunos $i$, $j$.
+Nos gustaría separar por casos $i$ par o impar, pero existe un caso molesto que es el caso $i = 0$.
+
+\begin{enumerate}
+\item[\underline{$i = 0$}] Entonces $\alpha = 1^j$ con $j \geq 2$,
+                           luego tomo $x = \lambda$, $y = 1$, $z = 1^{j-1}$.
+    Notemos que
+    \begin{itemize}
+    \item $|x y| =1 \leq 2$
+    \item $|y| = 1 \geq 1$
+    \item $xy^rz = 1^r1^{j-1} = 1^{r+j-1} \in \ele$, pues $i = 0$ es par.
+    \end{itemize}
+\item[\underline{$i > 0$}] Podemos considerar dos casos para $\alpha = 0^i1^j$:
+  \begin{itemize}
+  \item[\textbf{$i$ es par}] Como $i > 0$, entonces $i$ es como mínimo 2. Luego podemos tomar
+               $x = \lambda$, $y = 0^2$, $z = 0^{i-2}1^j$. Notemos que
+        \begin{itemize}
+        \item $|x y| = 2 \leq 2$
+        \item $|y| = 2 \geq 1$
+        \item $xy^rz = 0^{2r}0^{i-2}1^j = 0^{2r+i-2}1^j \in \ele$, pues $2r+i-2$ es par.
+        \end{itemize}
+  \item[\textbf{$i$ es impar}] En este caso necesariamente $i > j$,
+               pues si no $\alpha = 0^i1^j \not\in \ele$.
+               En este caso basta conconsiderar $x = \lambda$, $y = 0$, $z = 0^{i-1}1^j$.
+               Notemos que
+        \begin{itemize}
+        \item $|x y| = 1 \leq 2$
+        \item $|y| = 1 \geq 1$
+        \item $xy^rz = 0^{r}0^{i-1}1^j = 0^{r+i-1}1^j \in \ele$,
+             pues si $r = 0$, entones $i - 1$ es par; y si $r \geq 1$ entonces $r + i - 1 \geq i > j$.
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
+\item Notemos que no podemos usar el pumping lemma directamente pues este lenguaje es un contraejemplo del recíproco.
+Pero podemos utilizar la propiedad que nos dice que un lenguaje no es regular si y solo si su complemento no es regular.
+
+Entonces intentemos probar que $\overline{\ele}$ no es regular.
+Supongamos que $\overline{\ele}$ es regular y lleguemos a un absurdo.
+
+Si fuera regular, por el pumping lemma,
+  existe $n$ tal que si $\alpha \in \elecomp$ y $|\alpha| \geq n$,
+  entonces $\alpha = xyz$ con $|y| \geq 1$, $|x y| \leq n$, y $xy^rz \in \elecomp$, $\forall r \geq 0$.
+
+Consideremos $0^{2n+1}1^{2n+2}$. Como $0^{2n+1}1^{2n+2} \in \elecomp$ y $|0^{2n+1}1^{2n+2}| \geq n$,
+entonces existen $x$,$y$,$z$ tal que pasa lo de arriba.
+
+Pero entonces necesariamente $xy = 0^{k_x + k_y}$, pues $|x y| \leq n$.
+En particular, $y^{k_y}$, con $k_y \geq 1$. Además, $z = 0^{2n+1-k_x-k_y}1^{2n+2}$.
+Pero notar que si tomamos $r = 3$, entonces $xy^3z$ debería pertenecer a $\elecomp$. Veamos que no.
+
+$xy^3z = 0^{k_x} 0^{3 k_y} 0^{2n+1-k_x-k_y}1^{2n+2} = 0^{2n+1+2k_x} 1^{2n+2}$.
+Pero $2n + 1 + 2k_x \geq 2n + 3 > 2n$, luego $xy^3z \in \ele$, y entonces $xy^3z \not\in \elecomp$.
+Absurdo, $\elecomp$ no puede ser un lenguaje regular, por lo tanto $\ele$ tampoco.
+
+
+\end{enumerate}
+
+\end{document}
+
