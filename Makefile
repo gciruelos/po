@@ -12,9 +12,6 @@ algoritmos_solucion.pdf: algoritmos/algoritmos_solucion.tex
 	pdflatex $<
 	pdflatex $<
 
-algoritmos: algoritmos_presentacion.pdf algoritmos_solucion.pdf
-	
-
 sistemas_presentacion.pdf: sistemas/sistemas_presentacion.tex
 	pdflatex $<
 	pdflatex $<
@@ -24,6 +21,8 @@ sistemas_solucion.pdf: sistemas/sistemas_solucion.tex
 	pdflatex $<
 	pdflatex $<
 	pdflatex $<
+
+algoritmos: algoritmos_presentacion.pdf algoritmos_solucion.pdf
 
 sistemas: sistemas_presentacion.pdf sistemas_solucion.pdf
 
