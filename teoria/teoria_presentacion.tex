@@ -19,7 +19,7 @@
 \begin{itemize}
     \item Materia :  \emph{Teoría de Lenguajes}
     \vspace{2em}
-    \item Práctica : \emph{???}
+    \item Práctica : \emph{Lenguajes regulares y lema de pumping}
 \end{itemize}
 }
 
@@ -28,11 +28,19 @@
 \begin{itemize}
     \item Primera parte
     \begin{itemize}
-        \item{???}
+		\item{Autómatas finitos y gramáticas regulares}
+		\item{Expresiones regulares}
+		\item{Autómatas finitos (cont.)}
+		\item{\textbf{Lenguajes regulares y lema de pumping}}
+		\item{Lenguajes libres de contexto}
+		\item{Traductores finitos}
     \end{itemize}
     \item Segunda Parte
     \begin{itemize}
-        \item{???}
+		\item{Escritura de gramáticas libres de contexto}
+		\item{Parsers descendentes}
+		\item{Gramáticas y parsers LR}
+		\item{Gramáticas de atributos y TDS}
     \end{itemize}
 \end{itemize}
 }
@@ -40,7 +48,9 @@
 \section{Ejercicio} 
 \frame{\frametitle{Contexto}
 \begin{itemize}
-  \item ???
+  \item El ejercicio podría ser un repaso de los temas de lema de pumping.
+  \item El lema de pumping da una condición necesaria para que un lenguaje sea regular, pero no suficiente.
+  \item Se asume que el alumno conoce el lema de pumping y además conoce propiedades de lenguajes regulares.
 \end{itemize} 
 }
 
@@ -59,6 +69,17 @@ Dado $\ele = \{0^i 1^j\ |\ i > j \, \lor \, i \text{ es par}\}$
                         \forall i (x y^i z \in \ele))) \]
 \item Demostrar que $\ele$ no es regular.
 \end{enumerate}
+}
+
+\frame{\frametitle{Solución: cosas que usamos}
+
+\begin{itemize}
+\item Un lenguaje es regular si y solo si su complemento es regular.
+\item Lema de \emph{pumping}: Si un lenguaje $\ele'$ es regular, entonces existe $n$ tal que todo $\gamma \in \ele'$ con $|\gamma| \geq n$ puede ser escrito como $\gamma = xyz$ con $x$, $y$, $z$ satisfaciendo
+   \[|xy| \leq n\]
+   \[|y| \geq 1 \]
+   \[xy^rz \in \ele' \text{\ para todo $r\in\mathbb{N}_0$}\]
+\end{itemize}
 }
 
 \frame{
